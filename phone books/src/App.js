@@ -54,14 +54,12 @@ const App = () => {
     return (
         <div>
             <h1>Phonebook</h1>
-            
             <Filter
                 type="search" 
                 id="searchInput"
                 value={search}
                 onChange={handleSearchChange}
             />
-
             <h2>Add new</h2>
             <PersonForm
                 onSubmit={handleSubmit}
@@ -74,7 +72,6 @@ const App = () => {
             <h2>Numbers</h2>
             <ul>
                 {person.map( e => 
-                    // <li key={e.name}> {e.name} {e.number} </li>
                     <Person 
                     key={e.name} 
                     name={e.name} number={e.number}/>
