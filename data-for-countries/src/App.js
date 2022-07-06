@@ -23,9 +23,6 @@ const App = () => {
     } else {
       setCountries(newFilter);
     }
-    // if(newFilter > 10) {
-    //   set
-    // }
   };
 
   return(
