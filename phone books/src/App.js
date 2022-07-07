@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import PersonForm from "./component/PersonForm";
 import Person from "./component/Person";
 import Filter from "./component/Filter";
-import axios from "axios";
-
+import persons from "./services/persons"
 
 const App = () => {
     const [person, setPerson] = useState([])
@@ -12,10 +11,8 @@ const App = () => {
     const [search, setSearch] = useState("")
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3001/persons")
-            .then(response => setPerson(response.data))
-    }, [])
+        persons.getAll().then(response => setPerson(response.data))
+    }, [person])
 
     const handleSearchChange = event => {
         let s = event.target.value
@@ -46,9 +43,12 @@ const App = () => {
                 return
             }
         }
-        setPerson (person.concat(newNameObject))
-        setNewName("")
-        setNewNumber("")
+        persons.create(newNameObject) 
+          .then(response => {
+            setPerson (person.concat(response.data))
+            setNewName("")
+            setNewNumber("")
+          })
     }
     
     return (
@@ -74,7 +74,9 @@ const App = () => {
                 {person.map( e => 
                     <Person 
                     key={e.name} 
-                    name={e.name} number={e.number}/>
+                    id={e.id}
+                    name={e.name} number={e.number}
+                    />
                 )} 
             </ul>
         </div>
